@@ -13,62 +13,6 @@
 #define Vector num*
 using namespace std;
 
-struct number_location {
-	pos len;
-	int* locations;
-};
-
-struct returnList {
-	Vector B0;
-	Matrix B;
-	Matrix Bini;
-	num r;
-	num lam;
-	Vector glam;
-	num gk = 0.0;
-	
-	returnList operator ()(Vector inB0, Matrix inB, Matrix inBini, num r, num lam, Vector inglam, num ingk) {
-		returnList a;
-		a.B0 = inB0;
-		a.B = inB;
-		a.Bini = inBini;
-		a.glam = inglam;
-		a.gk = ingk;
-		a.r = r;
-		a.lam = lam;
-		return a;
-	}
-	void operator = (returnList toEqual) {
-		B0 = toEqual.B0;
-		B = toEqual.B;
-		Bini = toEqual.Bini;
-		r = toEqual.r;
-		lam = toEqual.lam;
-		glam = toEqual.glam;
-		gk = toEqual.gk;
-	}
-};
-
-struct cv_returnList {
-	Vector lambda;
-	pos nlam;
-	Vector vr;
-	pos nr;
-	num lambda_opt;
-	num r_opt;
-	int** optloc;
-	Matrix cvm;
-	pos nfold;
-	void operator = (cv_returnList toEqual) {
-		lambda = toEqual.lambda;
-		vr = toEqual.vr;
-		lambda_opt = toEqual.lambda_opt;
-		r_opt = toEqual.r_opt;
-		optloc = toEqual.optloc;
-		cvm = toEqual.cvm;
-	}
-};
-
 //Globals
 auto TIME = chrono::steady_clock::now();
 stack<string> currentTic;
