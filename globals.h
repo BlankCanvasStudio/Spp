@@ -8,6 +8,9 @@ using namespace std;
 #define MIN_NUM -pow(1.17, 38)
 #define num double
 #define pos unsigned
+#define let auto
+    // Too much js
+
 
 
 bool Indexable(int i, pos len){
@@ -24,12 +27,16 @@ bool Indexable(int i, pos len){
 struct Vector {
     num* array;
     pos len;
+    pos shape;
+        // Unnecessary but a nice touch
     Vector(pos length){
         len = length;
+        shape = length;
         array = new num[len];
     }
     Vector(num* array_in, pos Length){
         len = Length;
+        shape = Length;
         array = new num[len];
         // We could do a pointer swap here but I'm worried that user deletion might interefere 
             // With the logical working of vectors so I went with a copy.
@@ -56,8 +63,21 @@ struct Matrix {
         // We may need to do something here to return shape nicely
             // By reference vs by value
     Matrix(pos rows, pos cols){
-        shape[0] = rows;
-        shape[1] = cols;
+        shape = [rows, cols];
+        array = new num*[rows];
+        for(int i=0; i<rows; i++){
+            array[i] = new num[cols];
+        }
+    }
+    Matrix(num** array_in, pos rows, pos cols){
+        shape = [rows, cols];
+        array = new num*[rows];
+        for(int i=0; i<rows; i++){
+            array[i] = new num[cols];
+            for(int j=0;j<cols;j++){
+                array[i][kj] = array_in[i][j];
+            }
+        }
     }
     Vector operator[](int i){
         // 2D indexing just happens because the 2nd index triggers on the vector that gets returned
