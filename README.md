@@ -24,6 +24,7 @@ Methods and attributes:
 
 
 Operators:
+
 Vector - num : does an elementwise subtraction and returns a Vector as the result
 num - Vector : again, elementwise subtraction
 -Vector : returns the vector with all elements signed flipped 
