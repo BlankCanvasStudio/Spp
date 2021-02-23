@@ -23,7 +23,11 @@ pos - shorthand for unsigned int
 
 Vector - an array with attribute len
 
-Matrix - a 2D array with attribute shape which returns a 2 element array of (row, col)
+Matrix - a 2D array with attribute shape which returns a 2 element array of [row, col]
+
+IndexVector - an object containing references to a vectors index. Allows for a(a>3) indexing. And when indexed, is indexed directly to the original array a
+
+IndexMatrix - similar object to IndexVector but used for matricis instead. Again allows for a(a>3) notation
 
 
 
@@ -33,6 +37,8 @@ Vector Details:
 Methods and attributes:
 
 .len will return an unsigned int with the length of the array 
+
+.shape will do the same thing
 
 
 
@@ -55,5 +61,10 @@ num / Vector & Vector / num : returns a Vector with the elementwise division as 
 num == Vector & Vector == num : returns a Vector with 1 and 0 in spots where equality is met
 
 Vector == Vector : returns true or false if the vectors are equal after elementwise comparison
+
+Matrix[Matrix>3] and Vector[Vector>3] returns all indexes which are greater than 3 
+
+Matrix(Matrix>3) and Vector(Vector>3) allows for indexing into the array at a given point. Should use same operators as Vectors with no problem. 
+  NOTE: This operator will modify the original Matrix/Vector. it is pass by reference. You can typecast it back to a vector with no issue, I've supported that.
 
 
