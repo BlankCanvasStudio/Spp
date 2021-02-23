@@ -68,6 +68,7 @@ Vector operator > (Vector &a, T b) {
 		if (a[i] > num_b) { a[i] = 0; }
 		else{ a[i] = 1; }
 	}
+	
 	return greaterThan;
 }
 template<typename T>
@@ -83,6 +84,7 @@ Vector operator >= (Vector &a, T b) {
 		if (a[i] => num_b) { a[i] = 0; }
 		else{ a[i] = 1; }
 	}
+	
 	return greaterThan;
 }
 template<typename T>
@@ -99,6 +101,7 @@ Vector operator < (Vector &a, T b) {
 		if (a[i] < num_b) { a[i] = 0; }
 		else{ a[i] = 1; }
 	}
+	
 	return greaterThan;
 }
 template<typename T>
@@ -114,6 +117,7 @@ Vector operator <= (Vector &a, T b) {
 		if (a[i] <= num_b) { a[i] = 0; }
 		else{ a[i] = 1; }
 	}
+	
 	return greaterThan;
 }
 template<typename T>
@@ -186,19 +190,20 @@ Vector operator == (Vector &a, T value) {
 		if (a[i] == value) { toReturn[i] = 1; }
 		else { toReturn[i] = 0; }
 	}
+	
 	return toReturn;
 }
 template<typename T>
 Vector operator == (T value, Vector &a) {
 	return a == value;
 }
-
 bool operator == (Vector &a, Vector &b) {
 	pos lenA = a.len;
 	if(lenA != b.len){ throw invalid_argument("Vectors must have the same dimensions."); }
-	for( int i=0; i<lenA; i++){
+	for(pos i=0; i<lenA; i++){
 		if (a[i]!=b[i]){return false;}
 	}
+	
 	return true;
 }
 template<typename T>
@@ -226,6 +231,21 @@ Vector operator % (Vector &a, Vector &b) {
 	return toReturn;
 }
 
+void operator = (Vector &a, Vector &b) {
+	pos lenA = a.len;
+	if(lenA != b.len){ throw invalid_argument("Vectors must have the same dimensions."); }
+	for(pos i=0; i<lenA; i++){
+		a[i] = b[i];
+	}
+}
+template<typename T>
+void operator = (Vector &a, T b) {
+	num val = num(b);
+	pos size = a.shape;
+	for(int i=0; i<shape; i++){
+		a[i] = val;
+	}
+}
 
 // Matrix Operators
 
@@ -365,6 +385,7 @@ Matrix operator < (Matrix &a, T b) {
 			else { toReturn[i][j] = 0; }
 		}
 	}
+	
 	return toReturn;
 }
 template<typename T>
@@ -383,6 +404,7 @@ vector<tuple<pos, pos>> operator > (Matrix &a, T b) {
 			else { toReturn[i][j] = 0; }
 		}
 	}
+	
 	return toReturn;
 }
 template<typename T>
@@ -401,6 +423,7 @@ Matrix operator <= (Matrix &a, T b) {
 			else { toReturn[i][j] = 0; }
 		}
 	}
+	
 	return toReturn;
 }
 template<typename T>
@@ -419,6 +442,7 @@ vector<tuple<pos, pos>> operator >= (Matrix &a, T b) {
 			else { toReturn[i][j] = 0; }
 		}
 	}
+	
 	return toReturn;
 }
 template<typename T>
@@ -551,6 +575,7 @@ bool operator == (Matrix &a, T value) {
 			else { toReturn[i][j] = 0; }
 		}
 	}
+	
 	return toReturn;
 }
 template<typename T>
@@ -634,4 +659,25 @@ Matrix operator % (Matrix &a, Matrix &b){
 		}
 	}
 	return result;
+}
+
+
+// Index Vector Functions 
+template<typename T>
+void operator = (IndexVector &a, T in) {
+	num val = num(in);
+	pos size = a.len;
+	for(pos i=0; i<size; i++){
+		a[i] = val;
+	}
+}
+void operator = (IndexVector &a, Vector &b) {
+	pos lenA = a.len;
+	if (lenA != b.len) {
+		cout << "ERROR ENCOUNTERED" << endl; 
+        throw invalid_argument("Vectors must have the same dimensions.");
+	}
+	for(pos i=0; i<lenA; i++){
+		a[i] = b[i];
+	}
 }
