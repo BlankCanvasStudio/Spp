@@ -15,6 +15,7 @@ bool Indexable(int i, pos len){
         // The negative condition it to make sure out of bounds index is not an issue 
             // while still allowing for negative indexing
         throw invalid_argument("Indexed outside bounds of array.");
+        return false;
     }
     return true;
 }
@@ -26,6 +27,15 @@ struct Vector {
     Vector(pos length){
         len = length;
         array = new num[len];
+    }
+    Vector(num* array_in, pos Length){
+        len = Length;
+        array = new num[len];
+        // We could do a pointer swap here but I'm worried that user deletion might interefere 
+            // With the logical working of vectors so I went with a copy.
+        for( int i=0; i<len; i++){
+            array[i] = array_in[i];
+        } 
     }
     num &operator[](int i) {
         // Add nice indexing
@@ -49,14 +59,15 @@ struct Matrix {
         shape[0] = rows;
         shape[1] = cols;
     }
-    Vector &operator[](int i){
+    Vector operator[](int i){
         // 2D indexing just happens because the 2nd index triggers on the vector that gets returned
         if(Indexable(i, shape[0])) {
             if ( i < 0 ){
-                i = len - i;
+                i = shape[0] - i;
                 // You do not need a -1 here because the negative indexing starts at -1
             }
-            return array[i]; 
+            return Vector(array[i], shape[0]);
+                // Quick little typecast might want to spped up typecast so this doesn't slow the prog
          }
     }
 };
